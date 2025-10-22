@@ -35,11 +35,11 @@ export function Step2({ onSubmit, defaultValues }: Step2Props) {
               Sobre negocios activos
             </h2>
             <p className="text-muted-foreground">
-              Sabemos que muchas personas emprendedoras desarrollan más de una
-              actividad o negocio, y que algunas pueden estar activas mientras
-              otras se encuentran en pausa. Nos gustaría conocer cuántos
-              negocios o actividades económicas mantiene actualmente activos,
-              entendiendo como "activos" aquellos en los que ha trabajado o
+              Sabemos que muchas personas camelladoras desarrollan más de una
+              actividad económica, y que algunas pueden estar activas mientras
+              otras se encuentran en pausa. Nos gustaría conocer cuántas
+              actividades económicas mantiene actualmente activas,
+              entendiendo como "activas" aquellos en los que ha trabajado o
               generado ingresos en los últimos tres meses.
             </p>
           </div>
@@ -50,7 +50,7 @@ export function Step2({ onSubmit, defaultValues }: Step2Props) {
             render={({ field }) => (
               <FormRadioGroup
                 name="activeBusinesses"
-                label="¿Cuántos negocios o actividades económicas mantiene actualmente activos?"
+                label="¿Cuántas actividades económicas mantiene actualmente activas?"
                 options={[
                   'Ninguno (todas mis actividades están en pausa o cerradas)',
                   'Uno',
@@ -68,7 +68,7 @@ export function Step2({ onSubmit, defaultValues }: Step2Props) {
 
           <FormInput
             name="businessName"
-            label="Nombre del negocio (opcional)"
+            label="Nombre del camello o actividad económica (opcional)"
             type="text"
             placeholder="Ej: Tienda de abarrotes..."
             register={register}

@@ -35,8 +35,8 @@ export function Step3({ onSubmit, defaultValues }: Step3Props) {
               Crecimiento de ingresos
             </h2>
             <p className="text-muted-foreground">
-              Para comprender mejor cómo ha evolucionado su negocio en los
-              últimos meses, nos gustaría conocer su percepción sobre el cambio
+              Para comprender mejor cómo ha evolucionado tu camello o actividad económica en los
+              últimos meses, nos gustaría conocer tu percepción sobre el cambio
               aproximado en los ingresos.
             </p>
           </div>
@@ -44,7 +44,7 @@ export function Step3({ onSubmit, defaultValues }: Step3Props) {
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription>
-              No buscamos una cifra exacta, solo una estimación general. Su
+              No buscamos una cifra exacta, solo una estimación general. Tu
               respuesta será confidencial y se utilizará únicamente con fines de
               análisis para entender tendencias entre diferentes tipos de
               negocios.
@@ -57,7 +57,7 @@ export function Step3({ onSubmit, defaultValues }: Step3Props) {
             render={({ field }) => (
               <FormRadioGroup
                 name="incomeChange"
-                label="En comparación con hace un año, ¿cómo considera que han cambiado los ingresos de su negocio?"
+                label="En comparación con hace un año, ¿cómo consideras que han cambiado los ingresos de tu camello o actividad económica?"
                 options={[
                   'Han disminuido más del 50 %',
                   'Han disminuido entre 25 % y 50 %',

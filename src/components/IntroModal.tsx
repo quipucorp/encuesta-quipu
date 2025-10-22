@@ -32,16 +32,16 @@ export function IntroModal({ isOpen, onClose }: IntroModalProps) {
           <p>
             En <strong className="text-quipu-teal">Quipu</strong>, trabajamos
             para comprender mejor las realidades, desafíos y oportunidades de
-            las personas emprendedoras como usted. Su participación nos ayudará
+            la gente camelladora como tú. Tu participación nos ayudará
             a conocer cómo han cambiado los ingresos, el empleo y las fuentes de
             financiamiento en los últimos meses, con el fin de seguir diseñando
-            soluciones financieras más útiles y adaptadas a sus necesidades.
+            soluciones financieras más útiles y adaptadas a tus necesidades.
           </p>
 
           <p className="font-medium">
-            La información que comparta será <strong>confidencial</strong> y se
+            La información que compartas será <strong>confidencial</strong> y se
             utilizará únicamente con fines de análisis. No se divulgarán datos
-            personales ni se asociarán sus respuestas a su identidad.
+            personales ni se asociarán tus respuestas a tu identidad.
           </p>
         </DialogDescription>
 

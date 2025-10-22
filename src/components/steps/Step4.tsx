@@ -33,10 +33,10 @@ export function Step4({ onSubmit, defaultValues }: Step4Props) {
               Empleos generados
             </h2>
             <p className="text-muted-foreground">
-              Sabemos que muchos negocios generan oportunidades de trabajo, ya
+              Sabemos que muchos camelladores como tú generan oportunidades de trabajo, ya
               sea para familiares, personas de la comunidad o ayudantes
               contratados de manera formal o informal. Nos gustaría conocer
-              cuántas personas trabajan actualmente en su negocio, incluyendo
+              cuántas personas trabajan actualmente en tu camello o actividad económica, incluyendo
               tanto trabajo permanente como apoyo ocasional.
             </p>
           </div>
@@ -47,7 +47,7 @@ export function Step4({ onSubmit, defaultValues }: Step4Props) {
             render={({ field }) => (
               <FormRadioGroup
                 name="currentEmployees"
-                label="En total, ¿cuántas personas trabajan actualmente en su negocio, además de usted?"
+                label="En total, ¿cuántas personas trabajan actualmente en tu camello o actividad económica, además de ti?"
                 options={[
                   'Ninguna (solo yo)',
                   '1 persona',
@@ -70,7 +70,7 @@ export function Step4({ onSubmit, defaultValues }: Step4Props) {
             render={({ field }) => (
               <FormRadioGroup
                 name="employeeChange"
-                label="En comparación con hace un año, ¿cuántas personas más o menos trabajan actualmente con usted en su negocio?"
+                label="En comparación con hace un año, ¿cuántas personas más o menos trabajan actualmente contigo en tu camello o actividad económica?"
                 options={[
                   'La misma cantidad',
                   '1 persona más',

@@ -57,8 +57,8 @@ export function Step5({ onSubmit, defaultValues }: Step5Props) {
           <div>
             <h2 className="text-2xl font-bold text-ink mb-2">Financiamiento</h2>
             <p className="text-muted-foreground">
-              Sabemos que muchas personas emprendedoras utilizan distintas formas
-              de financiamiento para sostener o hacer crecer su negocio. Algunas
+              Sabemos que mucha gente camelladora utiliza distintas formas
+              de financiamiento para sostener o hacer crecer su camello o actividad económica. Algunas
               recurren a bancos o cooperativas, mientras que otras obtienen
               préstamos directamente de personas particulares o prestamistas
               informales.
@@ -80,7 +80,7 @@ export function Step5({ onSubmit, defaultValues }: Step5Props) {
             render={({ field }) => (
               <FormRadioGroup
                 name="usedGotaGota"
-                label='En los últimos 12 meses, ¿ha recibido algún préstamo o financiamiento de personas particulares o prestamistas informales, por ejemplo, de los conocidos como "gota a gota" o similares?'
+                label='En los últimos 12 meses, ¿has recibido algún préstamo o financiamiento de personas particulares o prestamistas informales, por ejemplo, de los conocidos como "gota a gota" o similares?'
                 options={['Sí', 'No', 'Prefiero no responder']}
                 value={field.value}
                 onChange={field.onChange}
@@ -103,7 +103,7 @@ export function Step5({ onSubmit, defaultValues }: Step5Props) {
                 render={({ field }) => (
                   <FormRadioGroup
                     name="gotaGotaFrequency"
-                    label="¿Con qué frecuencia ha utilizado este tipo de financiamiento en el último año?"
+                    label="¿Con qué frecuencia has utilizado este tipo de financiamiento en el último año?"
                     options={[
                       'Solo una vez',
                       'Varias veces (2 a 4 veces)',
@@ -144,7 +144,7 @@ export function Step5({ onSubmit, defaultValues }: Step5Props) {
             render={({ field }) => (
               <FormCheckboxGroup
                 name="otherFinancing"
-                label="¿A qué otro tipo de financiación ha tenido que recurrir para sostener su negocio o actividad productiva?"
+                label="¿A qué otro tipo de financiación has tenido que recurrir para sostener tu camello o actividad económica?"
                 description="Puede elegir varias opciones"
                 options={otherFinancingOptions}
                 values={field.value || []}
