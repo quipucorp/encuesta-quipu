@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Quipu Brand Colors */
+    --quipu-teal: 179 100% 33%;
+    --quipu-lime: 113 62% 66%;
+    --quipu-yellow: 48 100% 64%;
+    --surface: 180 14% 96%;
+    --ink: 222 47% 11%;
+
+    /* shadcn theme - using Quipu teal as primary */
+    --background: 180 14% 96%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 179 100% 33%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 113 62% 66%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 180 14% 93%;
+    --muted-foreground: 222 13% 46%;
+    --accent: 48 100% 64%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 179 100% 33%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
