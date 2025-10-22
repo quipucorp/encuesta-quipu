@@ -74,54 +74,62 @@ function ensureHeaders() {
 }
 
 /**
+ * Procesa los datos del formulario y los guarda
+ * (función helper usada por doGet y doPost)
+ */
+function processFormSubmission(data) {
+  // Asegurar que los encabezados existen
+  const sheet = ensureHeaders();
+
+  // Formatear timestamp (Colombia timezone: GMT-5)
+  const timestamp = Utilities.formatDate(
+    new Date(),
+    'America/Bogota',
+    'yyyy-MM-dd HH:mm:ss'
+  );
+
+  // Construir la fila con los datos
+  const row = [
+    timestamp,                                          // A: Fecha y Hora
+    data.step1?.gender || '',                          // B: Género
+    data.step1?.age || '',                             // C: Edad
+    data.step1?.city || '',                            // D: Ciudad
+    data.step1?.documentType || '',                    // E: Tipo de Documento
+    data.step1?.documentNumber || '',                  // F: Número de Documento
+    data.step2?.activeBusinesses || '',                // G: Negocios Activos
+    data.step2?.businessName || '',                    // H: Nombre del Negocio
+    data.step3?.incomeChange || '',                    // I: Cambio en Ingresos
+    data.step4?.currentEmployees || '',                // J: Empleados Actuales
+    data.step4?.employeeChange || '',                  // K: Cambio en Empleados
+    data.step5?.usedGotaGota || '',                    // L: Usó Gota a Gota
+    data.step5?.gotaGotaFrequency || '',               // M: Frecuencia Gota a Gota
+    formatArray(data.step5?.gotaGotaReasons),          // N: Razones Gota a Gota
+    data.step5?.gotaGotaReasonOther || '',             // O: Razón Otra
+    formatArray(data.step5?.otherFinancing),           // P: Otros Financiamientos
+    data.step5?.otherFinancingOther || '',             // Q: Otro Financiamiento
+    data.step6?.privacyConsent ? 'TRUE' : 'FALSE'      // R: Consentimiento
+  ];
+
+  // Agregar la fila al final del sheet
+  sheet.appendRow(row);
+
+  return timestamp;
+}
+
+/**
  * Maneja las peticiones POST del formulario
  */
 function doPost(e) {
   try {
     // Parsear el cuerpo JSON
     const data = JSON.parse(e.postData.contents);
+    Logger.log('POST - Datos recibidos:', JSON.stringify(data, null, 2));
 
-    Logger.log('Datos recibidos:', JSON.stringify(data, null, 2));
+    const timestamp = processFormSubmission(data);
 
-    // Asegurar que los encabezados existen
-    const sheet = ensureHeaders();
+    Logger.log('Fila agregada exitosamente (POST)');
 
-    // Formatear timestamp (Colombia timezone: GMT-5)
-    const timestamp = Utilities.formatDate(
-      new Date(),
-      'America/Bogota',
-      'yyyy-MM-dd HH:mm:ss'
-    );
-
-    // Construir la fila con los datos
-    const row = [
-      timestamp,                                          // A: Fecha y Hora
-      data.step1?.gender || '',                          // B: Género
-      data.step1?.age || '',                             // C: Edad
-      data.step1?.city || '',                            // D: Ciudad
-      data.step1?.documentType || '',                    // E: Tipo de Documento
-      data.step1?.documentNumber || '',                  // F: Número de Documento
-      data.step2?.activeBusinesses || '',                // G: Negocios Activos
-      data.step2?.businessName || '',                    // H: Nombre del Negocio
-      data.step3?.incomeChange || '',                    // I: Cambio en Ingresos
-      data.step4?.currentEmployees || '',                // J: Empleados Actuales
-      data.step4?.employeeChange || '',                  // K: Cambio en Empleados
-      data.step5?.usedGotaGota || '',                    // L: Usó Gota a Gota
-      data.step5?.gotaGotaFrequency || '',               // M: Frecuencia Gota a Gota
-      formatArray(data.step5?.gotaGotaReasons),          // N: Razones Gota a Gota
-      data.step5?.gotaGotaReasonOther || '',             // O: Razón Otra
-      formatArray(data.step5?.otherFinancing),           // P: Otros Financiamientos
-      data.step5?.otherFinancingOther || '',             // Q: Otro Financiamiento
-      data.step6?.privacyConsent ? 'TRUE' : 'FALSE'      // R: Consentimiento
-    ];
-
-    // Agregar la fila al final del sheet
-    sheet.appendRow(row);
-
-    Logger.log('Fila agregada exitosamente');
-
-    // Respuesta exitosa con headers CORS
-    const output = ContentService
+    return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
         message: 'Datos guardados correctamente',
@@ -129,34 +137,63 @@ function doPost(e) {
       }))
       .setMimeType(ContentService.MimeType.JSON);
 
-    return output;
-
   } catch (error) {
-    Logger.log('Error:', error.toString());
+    Logger.log('Error en POST:', error.toString());
 
-    // Respuesta de error con headers CORS
-    const output = ContentService
+    return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
         error: error.toString()
       }))
       .setMimeType(ContentService.MimeType.JSON);
-
-    return output;
   }
 }
 
 /**
- * Maneja las peticiones GET (para pruebas)
+ * Maneja las peticiones GET
+ * IMPORTANTE: También procesa envíos de formulario via GET para evitar CORS
  */
-function doGet() {
-  return ContentService
-    .createTextOutput(JSON.stringify({
-      status: 'OK',
-      message: 'Google Apps Script para Encuesta Quipu está funcionando',
-      timestamp: new Date().toISOString()
-    }))
-    .setMimeType(ContentService.MimeType.JSON);
+function doGet(e) {
+  try {
+    // Si hay parámetro 'data', es un envío de formulario
+    if (e.parameter && e.parameter.data) {
+      Logger.log('GET con data - Request recibido');
+
+      const data = JSON.parse(decodeURIComponent(e.parameter.data));
+      Logger.log('GET - Datos parseados:', JSON.stringify(data, null, 2));
+
+      const timestamp = processFormSubmission(data);
+
+      Logger.log('Fila agregada exitosamente (GET)');
+
+      return ContentService
+        .createTextOutput(JSON.stringify({
+          success: true,
+          message: 'Datos guardados correctamente',
+          timestamp: timestamp
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Si no hay data, es una prueba de conexión
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        status: 'OK',
+        message: 'Google Apps Script para Encuesta Quipu está funcionando',
+        timestamp: new Date().toISOString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    Logger.log('Error en GET:', error.toString());
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 /**

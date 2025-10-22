@@ -27,12 +27,18 @@ export async function submitSurveyToSheets(
       dataKeys: Object.keys(data),
     });
 
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+    // Usar GET con query params para evitar CORS issues con Google Apps Script
+    // El script está configurado para recibir por GET también
+    const params = new URLSearchParams({
+      data: encodeURIComponent(JSON.stringify(data)),
+    });
+
+    const fullUrl = `${apiUrl}?${params.toString()}`;
+
+    console.log('[API] URL completa:', fullUrl.substring(0, 150) + '...');
+
+    const response = await fetch(fullUrl, {
+      method: 'GET',
       redirect: 'follow',
     });
 
